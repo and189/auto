@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leaflet Karte mit Ladeindikator und Exportfunktion</title>
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <!-- Leaflet Draw CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css"/>
+  <style>
+    #map { height: 90vh; }
+    body, html { margin: 0; padding: 0; }
+
+    /* CSS für das Lade-Overlay */
+    #loadingOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255,255,255,0.8);
+      display: none; /* Initial ausgeblendet */
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      flex-direction: column;
+    }
+
+    #loadingOverlay .loader {
+      border: 16px solid #f3f3f3; /* Hellgrauer Hintergrund */
+      border-top: 16px solid #3498db; /* Blaue Spitze */
+      border-radius: 50%;
+      width: 120px;
+      height: 120px;
+      animation: spin 2s linear infinite;
+    }
+
+    #loadingOverlay p {
+      margin-top: 20px;
+      font-size: 1.5em;
+      color: #3498db;
+    }
+
+    /* Animation für den Spinner */
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Container für die Export-Buttons und Schrittanzahl */
+    #exportContainer {
+      padding: 10px;
+      background-color: #f9f9f9;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #exportContainer button {
+      padding: 10px 20px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    #stepCount {
+      font-size: 1.2em;
+      margin-left: auto;
+    }
+  </style>
+</head>
+<body>
+  <!-- Container für Export-Buttons und Schrittanzahl -->
+  <div id="exportContainer">
+    <button id="exportRoute">Route Exportieren</button>
+    <button id="exportFence">Fence Exportieren</button>
+    <div id="stepCount">Schritte: 0</div>
+  </div>
+
+  <!-- Kartencontainer -->
+  <div id="map"></div>
+
+  <!-- Lade-Overlay -->
+  <div id="loadingOverlay">
+    <div class="loader"></div>
+    <p>Daten werden geladen...</p>
+  </div>
+
+  <!-- Leaflet JavaScript -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Leaflet Draw JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+  <!-- Turf.js -->
+  <script src="https://unpkg.com/@turf/turf@6.5.0/turf.min.js"></script>
+  <!-- Leaflet GeometryUtil -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.geometryutil/0.9.3/leaflet.geometryutil.min.js"></script>
+  <!-- Dein JavaScript-Code -->
+  <script src="/src/main.js"></script> <!-- Passe den Pfad an, falls nötig -->
+</body>
+</html>
